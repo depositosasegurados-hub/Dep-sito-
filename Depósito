@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Guía - Depósito Asegurado</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(180deg, #1a4d32 0%, #0d2b1c 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 30px 20px;
+            border-radius: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Diseño solicitado: Servicio de entrega y Consulta guía */
+        .header-text {
+            margin-bottom: 20px;
+        }
+
+        .delivery-title {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .consult-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .icons-lock {
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 10px 0;
+            font-weight: 700;
+        }
+
+        p {
+            color: #d0d0d0;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            border-radius: 15px;
+            border: none;
+            background-color: #f0f4f8;
+            box-sizing: border-box;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            outline: none;
+            color: #333;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 15px;
+            border: none;
+            font-weight: bold;
+            font-size: 1.05rem;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            display: block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background-color: #00ff85;
+            color: #0d2b1c;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(90deg, #187a71, #25a093);
+            color: white;
+        }
+
+        .footer-text {
+            color: #8da397;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-text">
+        <div class="delivery-title">(🚛Servicio de entrega✈️)</div>
+        <div class="consult-title">(Consulta guía)</div>
+        <div class="icons-lock">📦🔐📦</div>
+    </div>
+
+    <h1>Consultar guía</h1>
+    <p>Consulta el estado de tu envío con depósito asegurado</p>
+
+    <div class="input-group">
+        <input type="text" id="numGuia" placeholder="Ingresa número de guía">
+        <input type="text" id="destino" placeholder="Ingresa la dirección de destino">
+    </div>
+
+    <button class="btn btn-primary" onclick="validarYEnviar()">Consultar Guía</button>
+    
+    <button class="btn btn-secondary" onclick="irAlChatBot()">Chat Bot</button>
+    
+    <a href="https://www.facebook.com/share/18QBj4DqTC/" target="_blank" class="btn btn-secondary">
+        Conoce más sobre nosotros
+    </a>
+
+    <div class="footer-text">
+        Servicio exclusivo depósito asegurado
+    </div>
+</div>
+
+<script>
+    function validarYEnviar() {
+        const guiaInput = document.getElementById('numGuia').value.trim();
+        const destinoInput = document.getElementById('destino').value.trim() || "No especificada";
+        
+        const codigoValido = "0750925931";
+        const telefonoWhatsApp = "573026219839";
+
+        if (guiaInput === codigoValido) {
+            // Obtenemos la fecha y hora actual en tiempo real
+            const fechaActual = new Date();
+            
+            // Le damos formato en español de Colombia (ejemplo: 24/2/2026, 3:45:12 p. m.)
+            const opcionesFormato = { 
+                year: 'numeric', 
+                month: 'numeric', 
+                day: 'numeric', 
+                hour: 'numeric', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true 
+            };
+            const fechaFormateada = fechaActual.toLocaleString('es-CO', opcionesFormato);
+
+            // Formateo del mensaje con la fecha automática
+            const mensajeTexto = 
+                "Hola, solicito más información del envío:\n\n" +
+                "📦 Guía: " + codigoValido + "\n" +
+                "📍 Estado: En tránsito\n" +
+                "🏢 Ubicación: Centro logístico\n" +
+                "🎯 Dirección de destino: " + destinoInput + "\n" +
+                "🕒 Última actualización: " + fechaFormateada + "\n\n" +
+                "Quedo atento a la información.";
+
+            const mensajeURL = encodeURIComponent(mensajeTexto);
+            window.location.href = "https://wa.me/" + telefonoWhatsApp + "?text=" + mensajeURL;
+        } else if (guiaInput === "") {
+            alert("Por favor, ingresa el número de guía.");
+        } else {
+            alert("Número de guía no reconocido. Por favor, verifica el código.");
+        }
+    }
+
+    function irAlChatBot() {
+        window.location.href = "https://site-c95oe23k0.godaddysites.com/";
+    }
+</script>
+
+</body>
+</html>
